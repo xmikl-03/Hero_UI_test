@@ -32,4 +32,14 @@ const CustomerSegmentationChart: React.FC = () => {
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </motion.div>
+  );
+};
+
+export default CustomerSegmentationChart;
