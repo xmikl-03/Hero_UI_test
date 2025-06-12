@@ -27,15 +27,25 @@ const DealFunnelChart: React.FC = () => {
     >
       <ResponsiveContainer width="100%" height="100%">
         <FunnelChart>
-          <Tooltip
-            contentStyle={{
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              border: 'none',
-              borderRadius: '20px',
-              padding: '10px',
-              color: 'white'
-            }}
-          />
+         <Tooltip
+  content={({ payload }) => {
+    if (!payload || payload.length === 0) return null;
+    const { name, value, color } = payload[0];
+    return (
+      <div
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
+          borderRadius: '12px',
+          padding: '10px',
+          color: color ?? 'white',
+        }}
+      >
+        <strong>{name}</strong>: {value}
+      </div>
+    );
+  }}
+/>
+
           <Funnel
             dataKey="value"
             data={data}
