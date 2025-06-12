@@ -35,17 +35,26 @@ const CustomerSegmentationChart: React.FC = () => {
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip
-            contentStyle={{
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              border: 'none',
-              borderRadius: '12px',
-              padding: '10px',
-              color: 'white',
-            }}
-            formatter={(value: number, name: string) => [`${value}`, name]}
-            cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }}
-          />
+        <Tooltip
+  content={({ payload }) => {
+    if (!payload || payload.length === 0) return null;
+    const { name, value, color } = payload[0];
+    return (
+      <div
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.35)', // 30% more transparent than 0.5
+          borderRadius: '12px',
+          padding: '10px',
+          color: color ?? 'white',
+        }}
+      >
+        <strong>{name}</strong>: {value}
+      </div>
+    );
+  }}
+  cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }}
+/>
+
           <Legend />
         </PieChart>
       </ResponsiveContainer>
