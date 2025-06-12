@@ -1,5 +1,14 @@
 import React from 'react';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from 'recharts';
 import { motion } from 'framer-motion';
 
 const data = [
@@ -23,7 +32,16 @@ const RevenueByProductChart: React.FC = () => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              border: 'none',
+              borderRadius: '10px',
+              padding: '10px',
+              color: 'white',
+            }}
+            formatter={(value: number, name: string) => [`${value}`, name]}
+          />
           <Legend />
           <Bar dataKey="revenue" fill="#8884d8" />
         </BarChart>
