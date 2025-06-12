@@ -1,55 +1,22 @@
 import React from 'react';
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
-import { motion } from 'framer-motion';
+import { Modal } from '@heroui/react';
 
-const data = [
-  { name: 'Enterprise', value: 400 },
-  { name: 'SMB', value: 300 },
-  { name: 'Startup', value: 200 },
-  { name: 'Individual', value: 100 },
-];
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-const CustomerSegmentationChart: React.FC = () => {
+const CustomerDemographics: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, rotate: -180 }}
-      animate={{ opacity: 1, rotate: 0 }}
-      transition={{ duration: 1 }}
-      className="h-[300px]"
-    >
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            nameKey="name"
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip
-            contentStyle={{
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              border: 'none',
-              borderRadius: '10px',
-              padding: '10px',
-              color: 'white'
-            }}
-            formatter={(value: number, name: string) => [`${value}`, name]}
-          />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
-    </motion.div>
+    <Modal isOpen={isOpen} onClose={onClose} title="Customer Segments">
+      <div className="space-y-2">
+        <p>Enterprise: 400 customers</p>
+        <p>SMB: 300 customers</p>
+        <p>Startup: 200 customers</p>
+        <p>Individual: 100 customers</p>
+      </div>
+    </Modal>
   );
 };
 
-export default CustomerSegmentationChart;
+export default CustomerDemographics;
