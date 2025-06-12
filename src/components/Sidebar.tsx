@@ -8,6 +8,7 @@ import DataPanel from './DataPanel';
 
 const Sidebar: React.FC = () => {
   const [isCustomerDemographicsOpen, setIsCustomerDemographicsOpen] = useState(false);
+const [isDataPanelOpen, setIsDataPanelOpen] = useState(false);
 
   const menuItems = [
     { icon: "lucide:home", label: "Dashboard" },
@@ -15,6 +16,7 @@ const Sidebar: React.FC = () => {
     { icon: "lucide:briefcase", label: "Deals" },
     { icon: "lucide:bar-chart", label: "Analytics" },
     { icon: "lucide:settings", label: "Settings" },
+    { icon: "lucide:database", label: "Data", onClick: () => setIsDataPanelOpen(true) },
   ];
 
   return (
@@ -46,6 +48,11 @@ const Sidebar: React.FC = () => {
         isOpen={isCustomerDemographicsOpen} 
         onClose={() => setIsCustomerDemographicsOpen(false)} 
       />
+      <DataPanel
+  isOpen={isDataPanelOpen}
+  onClose={() => setIsDataPanelOpen(false)}
+/>
+
     </motion.aside>
   );
 };
