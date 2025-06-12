@@ -29,12 +29,23 @@ const CustomerSegmentationChart: React.FC = () => {
             outerRadius={80}
             fill="#8884d8"
             dataKey="value"
+            nameKey="name"
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              border: 'none',
+              borderRadius: '12px',
+              padding: '10px',
+              color: 'white',
+            }}
+            formatter={(value: number, name: string) => [`${value}`, name]}
+            cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }}
+          />
           <Legend />
         </PieChart>
       </ResponsiveContainer>
