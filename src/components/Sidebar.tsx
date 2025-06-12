@@ -3,6 +3,8 @@ import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import CustomerDemographics from './CustomerDemographics';
+import DataPanel from './DataPanel';
+
 
 const Sidebar: React.FC = () => {
   const [isCustomerDemographicsOpen, setIsCustomerDemographicsOpen] = useState(false);
