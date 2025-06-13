@@ -15,7 +15,7 @@ const Sidebar: React.FC = () => {
     { icon: "lucide:users", label: "Customers", onClick: () => setIsCustomerDemographicsOpen(true) },
     { icon: "lucide:briefcase", label: "Deals" },
     { icon: "lucide:bar-chart", label: "Analytics" },
-    { icon: "lucide:settings", label: "Settings" },
+    { icon: "lucide:settings", label: "Settings my ass" },
     { icon: "lucide:database", label: "Data", onClick: () => setIsDataPanelOpen(true) },
   ];
 
