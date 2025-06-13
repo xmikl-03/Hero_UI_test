@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
-import { ResponsiveContainer, FunnelChart, Funnel, LabelList, Tooltip } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend, FunnelChart, Funnel, LabelList, Tooltip } from 'recharts';
+import { motion } from 'framer-motion'; } from 'recharts';
 import { motion } from 'framer-motion';
 
 const data = [
