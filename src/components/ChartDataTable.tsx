@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableRow, Input } from '@heroui/react';
+import React from 'react';
+import { Table, TableBody, TableCell, TableRow, Input } from '@heroui/react';
 
-interface DataRow {
-  name: string;
+interface ChartDataRow {
+  id: string;
+  label: string;
   value: number;
 }
 
@@ -10,75 +11,55 @@ interface Props {
   chartKey: string;
 }
 
-const defaultData: Record<string, DataRow[]> = {
-  customerSegmentation: [
-    { name: 'Enterprise', value: 400 },
-    { name: 'SMB', value: 300 },
-    { name: 'Startup', value: 200 },
-    { name: 'Individual', value: 100 },
-  ],
-  dealFunnel: [
-    { name: 'Leads', value: 800 },
-    { name: 'Opportunities', value: 400 },
-    { name: 'Proposals', value: 200 },
-    { name: 'Closed', value: 100 },
-  ],
-  revenueByProduct: [
-    { name: 'Product A', value: 12000 },
-    { name: 'Product B', value: 9000 },
-    { name: 'Product C', value: 6000 },
-  ],
-};
+const sampleData: ChartDataRow[] = [
+  { id: '1', label: 'A', value: 100 },
+  { id: '2', label: 'B', value: 200 },
+  { id: '3', label: 'C', value: 300 },
+];
 
 const ChartDataTable: React.FC<Props> = ({ chartKey }) => {
-  const [data, setData] = useState<DataRow[]>([]);
+  const [rows, setRows] = React.useState<ChartDataRow[]>(sampleData);
 
-  useEffect(() => {
-    const saved = localStorage.getItem(chartKey);
-    setData(saved ? JSON.parse(saved) : defaultData[chartKey]);
-  }, [chartKey]);
-
-  useEffect(() => {
-    localStorage.setItem(chartKey, JSON.stringify(data));
-  }, [data, chartKey]);
-
-  const updateRow = (index: number, field: keyof DataRow, value: string) => {
-    const newData = [...data];
-    newData[index] = {
-      ...newData[index],
-      [field]: field === 'value' ? parseFloat(value) || 0 : value,
-    };
-    setData(newData);
+  const updateRow = (id: string, field: 'label' | 'value', newValue: string) => {
+    setRows(prev =>
+      prev.map(row =>
+        row.id === id ? { ...row, [field]: field === 'value' ? Number(newValue) : newValue } : row
+      )
+    );
   };
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell>Value</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {data.map((row, index) => (
-          <TableRow key={index}>
-            <TableCell>
-              <Input
-                value={row.name}
-                onChange={(e) => updateRow(index, 'name', e.target.value)}
-              />
-            </TableCell>
-            <TableCell>
-              <Input
-                type="number"
-                value={row.value.toString()}
-                onChange={(e) => updateRow(index, 'value', e.target.value)}
-              />
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <div className="overflow-auto">
+      <Table removeWrapper>
+        <thead>
+          <tr>
+            <th className="text-left px-4 py-2">Label</th>
+            <th className="text-left px-4 py-2">Value</th>
+          </tr>
+        </thead>
+        <TableBody>
+          {rows.map(row => (
+            <TableRow key={row.id}>
+              <TableCell>
+                <Input
+                  value={row.label}
+                  onChange={e => updateRow(row.id, 'label', e.target.value)}
+                  size="sm"
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  value={row.value.toString()}
+                  onChange={e => updateRow(row.id, 'value', e.target.value)}
+                  type="number"
+                  size="sm"
+                />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
