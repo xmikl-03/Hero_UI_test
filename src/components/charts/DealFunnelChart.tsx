@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ResponsiveContainer, FunnelChart, Funnel, LabelList, Tooltip } from 'recharts';
+import { ResponsiveContainer, FunnelChart, Funnel, LabelList, Tooltip, Cell } from 'recharts';
 import { motion } from 'framer-motion';
 
 const data = [
